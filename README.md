@@ -1,2 +1,2 @@
 # seminar_intro
-Ba
+basic information about VV programming

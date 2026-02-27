@@ -1,0 +1,889 @@
+/* ============================================
+   PROGRAMOVACÍ SEMINÁŘ - STYLE.CSS
+   Geek/Hacker estetika s neonovými efekty
+   ============================================ */
+
+:root {
+    /* Barva schéma */
+    --bg: #0a0a0a;
+    --bg-light: #0d1117;
+    --accent: #00ff41;
+    --accent-cyan: #00d4ff;
+    --text: #e0e0e0;
+    --text-muted: #888;
+    
+    /* Neon stíny */
+    --glow-green: 0 0 10px rgba(0, 255, 65, 0.3), 0 0 20px rgba(0, 255, 65, 0.2);
+    --glow-cyan: 0 0 10px rgba(0, 212, 255, 0.3), 0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ============================================
+   SCANLINE OVERLAY EFEKT
+   ============================================ */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.15) 0px,
+            rgba(0, 0, 0, 0.15) 1px,
+            transparent 1px,
+            transparent 2px
+        );
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* ============================================
+   HEADER A HERO SEKCE
+   ============================================ */
+.header {
+    position: relative;
+    background: linear-gradient(135deg, #0a0a0a 0%, #0d1117 100%);
+    padding: 60px 20px;
+    border-bottom: 2px solid var(--accent);
+    overflow: hidden;
+}
+
+.scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.02) 0px,
+            transparent 2px
+        );
+    pointer-events: none;
+}
+
+.hero-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+}
+
+.main-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0 0 30px 0;
+    line-height: 1.2;
+    color: var(--accent);
+    text-shadow: 
+        0 0 10px var(--accent),
+        0 0 20px rgba(0, 255, 65, 0.5);
+    animation: typewriter 4s steps(40, end) 0.5s forwards;
+    white-space: no-wrap;
+    overflow: hidden;
+    letter-spacing: 2px;
+}
+
+/* Typewriter animace */
+@keyframes typewriter {
+    from {
+        width: 0;
+        border-right: 2px solid var(--accent);
+    }
+    to {
+        width: 100%;
+        border-right: none;
+    }
+}
+
+/* Glitch efekt na nadpisu při hover */
+.glitch-text {
+    position: relative;
+    display: inline-block;
+}
+
+.glitch-text:hover {
+    animation: glitch 0.3s infinite;
+}
+
+@keyframes glitch {
+    0% {
+        text-shadow: 
+            0 0 10px var(--accent),
+            0 0 20px rgba(0, 255, 65, 0.5),
+            -2px 0 var(--accent-cyan),
+            2px 0 var(--accent);
+        transform: skewX(0deg);
+    }
+    25% {
+        transform: skewX(-2deg);
+    }
+    50% {
+        text-shadow: 
+            0 0 10px var(--accent),
+            0 0 20px rgba(0, 255, 65, 0.5),
+            2px 0 var(--accent-cyan),
+            -2px 0 var(--accent);
+        transform: skewX(2deg);
+    }
+    75% {
+        transform: skewX(-2deg);
+    }
+    100% {
+        text-shadow: 
+            0 0 10px var(--accent),
+            0 0 20px rgba(0, 255, 65, 0.5),
+            -2px 0 var(--accent-cyan),
+            2px 0 var(--accent);
+        transform: skewX(0deg);
+    }
+}
+
+/* Blikající kurzor */
+.cursor-blink {
+    display: inline-block;
+    color: var(--accent);
+    font-weight: bold;
+    margin-left: -10px;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    0%, 49% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0;
+    }
+}
+
+/* Terminal výstup */
+.terminal-output {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    padding: 20px;
+    margin-top: 20px;
+    font-size: 13px;
+    box-shadow: var(--glow-green);
+    font-family: 'Courier New', monospace;
+}
+
+.terminal-line {
+    margin: 8px 0;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.terminal-line:first-child {
+    color: var(--accent);
+}
+
+.green-text {
+    color: var(--accent) !important;
+    text-shadow: 0 0 10px var(--accent);
+}
+
+.hero-image {
+    position: relative;
+}
+
+.hero-image img {
+    width: 100%;
+    max-width: 400px;
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+    filter: brightness(1.1) contrast(1.1);
+}
+
+/* ============================================
+   SEKCE OBSAHU
+   ============================================ */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+section {
+    margin: 80px 0;
+    padding: 40px;
+    background: rgba(13, 17, 23, 0.5);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+}
+
+section h2 {
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Fade-in animace sekcí */
+.fade-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================
+   ABOUT SEKCE
+   ============================================ */
+.about-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.section-content h2 {
+    grid-column: 1 / -1;
+}
+
+.code-block {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--accent-cyan);
+    border-radius: 4px;
+    padding: 20px;
+    font-size: 13px;
+    overflow-x: auto;
+    box-shadow: var(--glow-cyan);
+    line-height: 1.8;
+}
+
+.code-block p {
+    margin: 4px 0;
+    color: var(--text);
+}
+
+.keyword {
+    color: var(--accent-cyan);
+    font-weight: bold;
+}
+
+.function {
+    color: #ffcc00;
+}
+
+.comment {
+    color: #666;
+}
+
+.indent {
+    margin-left: 40px;
+}
+
+.about-image img {
+    width: 100%;
+    max-width: 300px;
+    border: 2px solid var(--accent-cyan);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+/* ============================================
+   CURRICULUM SEKCE
+   ============================================ */
+.curriculum-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.curriculum-item {
+    background: rgba(13, 17, 23, 0.8);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+}
+
+.curriculum-item:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 
+        0 0 20px rgba(0, 255, 65, 0.3),
+        0 0 20px rgba(0, 212, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+.commit-hash {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 4px 8px;
+    border-radius: 2px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.curriculum-item h3 {
+    color: var(--accent-cyan);
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+.curriculum-item p {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.curriculum-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.curriculum-images img {
+    width: 100%;
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+}
+
+/* ============================================
+   WHY SEKCE
+   ============================================ */
+.benefits-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.benefit-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border-left: 3px solid var(--accent-cyan);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.benefit-item:hover {
+    background: rgba(0, 255, 65, 0.05);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+}
+
+.check {
+    color: var(--accent);
+    font-weight: bold;
+    flex-shrink: 0;
+    font-size: 1.2rem;
+}
+
+.benefit-item p {
+    color: var(--text);
+}
+
+.xp {
+    color: var(--accent);
+    font-weight: bold;
+    text-shadow: 0 0 10px var(--accent);
+}
+
+.code-inline {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 2px 6px;
+    border-radius: 2px;
+    color: var(--accent-cyan);
+}
+
+.why-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.why-images img {
+    width: 100%;
+    border: 2px solid var(--accent-cyan);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+/* ============================================
+   IDEAL SEKCE
+   ============================================ */
+.ideal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.ideal-for, .ideal-against {
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    padding: 25px;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+}
+
+.ideal-against {
+    border-color: #ff4444;
+    box-shadow: 0 0 20px rgba(255, 68, 68, 0.1);
+}
+
+.good-title {
+    color: var(--accent);
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px var(--accent);
+}
+
+.bad-title {
+    color: #ff6666;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px #ff6666;
+}
+
+.ideal-for ul, .ideal-against ul {
+    list-style: none;
+}
+
+.ideal-for li, .ideal-against li {
+    padding: 8px 0;
+    padding-left: 20px;
+    color: var(--text-muted);
+    position: relative;
+}
+
+.ideal-for li::before {
+    content: '→ ';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.ideal-against li::before {
+    content: '✗ ';
+    position: absolute;
+    left: 0;
+    color: #ff6666;
+    font-weight: bold;
+}
+
+.ideal-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.ideal-images img {
+    width: 100%;
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+}
+
+/* ============================================
+   TESTIMONIALS SEKCE
+   ============================================ */
+.testimonials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.testimonial {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--accent-cyan);
+    border-radius: 4px;
+    padding: 25px;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.testimonial:hover {
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.2);
+    border-color: var(--accent);
+    transform: scale(1.02);
+}
+
+.testimonial-text {
+    color: var(--text);
+    font-style: italic;
+    font-size: 13px;
+    margin-bottom: 15px;
+    line-height: 1.8;
+}
+
+.testimonial-text::before {
+    content: '"';
+    color: var(--accent-cyan);
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.testimonial-text::after {
+    content: '"';
+    color: var(--accent-cyan);
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.testimonial-author {
+    color: var(--accent);
+    font-size: 12px;
+    text-align: right;
+}
+
+.testimonials-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.testimonials-images img {
+    width: 100%;
+    border: 2px solid var(--accent-cyan);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+/* ============================================
+   MESSAGE SEKCE
+   ============================================ */
+.message-box {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 255, 65, 0.05));
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+    margin-bottom: 40px;
+}
+
+.message-box p {
+    color: var(--text);
+    margin: 15px 0;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.message-box p strong {
+    color: var(--accent);
+    font-weight: bold;
+    text-shadow: 0 0 10px var(--accent);
+}
+
+.message-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.message-images img {
+    width: 100%;
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+}
+
+/* ============================================
+   CONTACT SEKCE A CTA TLAČÍTKO
+   ============================================ */
+.contact-section {
+    text-align: center;
+}
+
+.cta-container {
+    margin: 40px 0;
+}
+
+.terminal-prompt {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: var(--glow-green);
+}
+
+.prompt-text {
+    color: var(--accent);
+    font-size: 14px;
+}
+
+/* Neon glow CTA tlačítko */
+.cta-button {
+    display: inline-block;
+    position: relative;
+    padding: 15px 40px;
+    margin: 20px 0;
+    background: rgba(0, 255, 65, 0.1);
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.cta-button:hover {
+    background: rgba(0, 255, 65, 0.2);
+    box-shadow: 
+        0 0 20px var(--accent),
+        0 0 40px var(--accent),
+        inset 0 0 20px rgba(0, 255, 65, 0.3);
+    transform: scale(1.05);
+}
+
+.cta-button:active {
+    transform: scale(0.98);
+}
+
+.button-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.cta-button:hover .button-glow {
+    opacity: 0.1;
+}
+
+.contact-info {
+    color: var(--text);
+    margin-top: 20px;
+    font-size: 15px;
+}
+
+.contact-info strong {
+    color: var(--accent);
+    text-shadow: 0 0 10px var(--accent);
+}
+
+.contact-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.contact-images img {
+    width: 100%;
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+    background: linear-gradient(135deg, #0d1117 0%, #0a0a0a 100%);
+    border-top: 2px solid var(--accent);
+    padding: 30px 20px;
+    text-align: center;
+    margin-top: 60px;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.footer p {
+    margin: 8px 0;
+}
+
+.footer strong {
+    color: var(--accent);
+}
+
+.heart {
+    display: inline-block;
+    animation: heartbeat 1s infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.footer-code {
+    color: var(--accent);
+    margin-top: 15px;
+    font-size: 11px;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 768px) {
+    .hero-section {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .main-title {
+        font-size: 2rem;
+    }
+
+    .about-section,
+    .ideal-grid,
+    .curriculum-images,
+    .why-images,
+    .testimonials-images,
+    .ideal-images,
+    .message-images,
+    .contact-images {
+        grid-template-columns: 1fr !important;
+    }
+
+    section {
+        padding: 25px;
+        margin: 40px 0;
+    }
+
+    section h2 {
+        font-size: 1.8rem;
+    }
+
+    .curriculum-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .benefits-list {
+        grid-template-columns: 1fr;
+    }
+
+    .testimonials {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-button {
+        width: 90%;
+        max-width: 300px;
+    }
+
+    .hero-image img,
+    .about-image img {
+        max-width: 100%;
+    }
+
+    .terminal-output {
+        font-size: 11px;
+    }
+
+    .code-block {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 12px;
+    }
+
+    .main-title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    section {
+        padding: 15px;
+        margin: 30px 0;
+    }
+
+    section h2 {
+        font-size: 1.4rem;
+    }
+
+    .ideal-for,
+    .ideal-against {
+        padding: 15px;
+    }
+
+    .message-box {
+        padding: 20px;
+    }
+
+    .message-box p {
+        font-size: 13px;
+    }
+
+    .terminal-prompt {
+        padding: 15px;
+    }
+
+    .prompt-text {
+        font-size: 12px;
+    }
+
+    .cta-button {
+        padding: 12px 30px;
+        font-size: 12px;
+    }
+
+    .testimonial {
+        padding: 15px;
+    }
+
+    .code-block {
+        padding: 15px;
+        font-size: 10px;
+    }
+}
